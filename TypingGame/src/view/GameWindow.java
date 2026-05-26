@@ -8,7 +8,8 @@ public class GameWindow extends JFrame{
     public JTextField inputField;
     public JLabel lblScore, lblHp, lblLevel;
     public JTextArea txtLeaderboard;
-    public JButton btnReset;
+    public JButton btnDelete;
+    public JButton btnMainLagi;
     private GamePanel gamePanel;
 
     public GameWindow() {
@@ -45,11 +46,18 @@ public class GameWindow extends JFrame{
         sidePanel.setPreferredSize(new Dimension(200, 600));
         txtLeaderboard = new JTextArea();
         txtLeaderboard.setEditable(false);
-        btnReset = new JButton("Main Lagi");
+        btnDelete = new JButton("Reset Leadarboad");
+        btnMainLagi = new JButton("Main Lagi");
+        
+        JPanel buttonPanel = new JPanel(new GridLayout(2, 1, 0, 5));
+        buttonPanel.add(btnDelete);
+        buttonPanel.add(btnMainLagi);
         
         sidePanel.add(new JLabel(" TOP SCORE ", JLabel.CENTER), BorderLayout.NORTH);
         sidePanel.add(new JScrollPane(txtLeaderboard), BorderLayout.CENTER);
-        sidePanel.add(btnReset, BorderLayout.SOUTH);
+        sidePanel.add(buttonPanel, BorderLayout.SOUTH);
+//        sidePanel.add(btnMainLagi, BorderLayout.SOUTH);
+        
         add(sidePanel, BorderLayout.EAST);
     }
 
@@ -61,7 +69,7 @@ public class GameWindow extends JFrame{
         gamePanel.repaint();
     }
 
-    // Inner class khusus untuk menggambar kata custom
+    // inner class khusus untuk menggambar kata custom
     private static class GamePanel extends JPanel {
         private ArrayList<Word> words = new ArrayList<>();
 

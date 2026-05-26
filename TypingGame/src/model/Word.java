@@ -19,6 +19,7 @@ public abstract class Word {
         this.y += speed;
     }
 
+    // point
     public abstract int onTypeSuccess();
 
     public String getText() { return text; }

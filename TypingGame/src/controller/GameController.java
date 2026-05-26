@@ -35,7 +35,7 @@ public class GameController {
 
         String name = JOptionPane.showInputDialog(view, "Masukkan Nama Player:");
         if (name == null || name.trim().isEmpty()) name = "Guest";
-
+        //TODO: kalau Guest gamasuk di topscore
         this.player = new Player(name.trim());
 
         initController();
@@ -52,7 +52,7 @@ public class GameController {
             }
         });
 
-        view.btnReset.addActionListener(new ActionListener() {
+        view.btnMainLagi.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!isRunning) { 
@@ -60,6 +60,13 @@ public class GameController {
                 } else {
                     JOptionPane.showMessageDialog(view, "Game masih berjalan! Selesaikan permainan terlebih dahulu.");
                 }
+            }
+        });
+        view.btnDelete.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                    deleteLeaderboard();
             }
         });
     }
@@ -78,11 +85,11 @@ public class GameController {
                     }
 
                     updateGameStatus();
-                    view.setWords(activeWords);
-                    view.refreshScreen();
+                    view.setWords(activeWords); // menurunkan koordinat Y kata
+                    view.refreshScreen(); // menggambar ulang layar
 
                     try {
-                        Thread.sleep(40); // Jalankan game di kisaran 50 FPS
+                        Thread.sleep(40); // menjalankan game di kisaran 50 FPS
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -90,7 +97,7 @@ public class GameController {
                 gameOver();
             }
         });
-        gameThread.start();
+        gameThread.start(); 
     }
 
     private void spawnWord() {
@@ -232,6 +239,7 @@ public class GameController {
                     String query = "DELETE FROM highscores";
                     Statement stmt = conn.createStatement();
                     stmt.executeUpdate(query);
+                    
                     loadLeaderboard();
                     JOptionPane.showMessageDialog(view, "Leaderboard berhasil dikosongkan!");
                 }
